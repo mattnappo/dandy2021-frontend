@@ -6,8 +6,9 @@ var testMarkers = [
         "latitude": 43.128242,
         "longitude": -77.630194,
         "comment": "The trash",
-        "type": "Garbage Cleanup",
-        "image": ""
+        "type": "Garbage Cleanup Job",
+        "image": "https://i.imgur.com/G8yrovZ.png",
+        "currentUser": "",
     },
     {
         "id": 1,
@@ -16,8 +17,9 @@ var testMarkers = [
         "latitude": 43.128587,
         "longitude": -77.629263,
         "comment": "Need some cleanup here",
-        "type": "Garbage Cleanup",
-        "image": ""
+        "type": "Garbage Cleanup Job",
+        "image": "https://i.imgur.com/G8yrovZ.png",
+        "currentUser": "",
     },
     {
         "id": 2,
@@ -27,7 +29,8 @@ var testMarkers = [
         "longitude": -77.631355,
         "comment": "Found a stray cat",
         "type": "Animal Care",
-        "image": ""
+        "image": "https://i.imgur.com/G8yrovZ.png",
+        "currentUser": "",
     },
     {
         "id": 3,
@@ -37,7 +40,8 @@ var testMarkers = [
         "longitude": -77.628405,
         "comment": "Needs cleaning",
         "type": "Garbage Cleanup",
-        "image": ""
+        "image": "https://i.imgur.com/G8yrovZ.png",
+        "currentUser": "",
     }
 ];
 
