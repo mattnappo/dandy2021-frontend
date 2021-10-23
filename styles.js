@@ -21,5 +21,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'red',
-  }
+  },
+
+  input: {
+    margin: 15,
+    height: 40,
+    width: 300,
+    borderColor: '#000000',
+    borderWidth: 1,
+    color: '#000000',
+    textAlign: 'center'
+ },
 });

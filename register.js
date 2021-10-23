@@ -1,21 +1,7 @@
-// import React from 'react';
-// import { Text, View } from 'react-native';
-// import { styles } from './styles';
-
-// export function PostScreen() {
-//   return(
-//     <View style={styles.container}>
-//       <Text>This is the post screen</Text>
-//     </View>
-//   );
-// }
-
 import React, { useState } from 'react';
 import { Text, View, Button, Alert, TextInput} from 'react-native';
 import { styles } from './styles';
 import axios from 'axios';
-import 'localstorage-polyfill'; 
-
 
 const createTwoButtonAlert = (messageTitle, messageMessage) =>
 Alert.alert(
@@ -31,40 +17,49 @@ Alert.alert(
 
 export default class newUser extends React.Component {
   state = {
+    name: '',
+    email: '',
     username: '',
     password: '', 
+    points: ''
   }
 
   handleChange = event => {
+    this.setState({ name: event.target.value });
+    this.setState({ email: event.target.value });
     this.setState({ username: event.target.value });
     this.setState({ password: event.target.value });
+    this.setState({ points: event.target.value });
   }
 
   handleSubmit = event => {
 
     const user = {
+      name: this.state.name,
+      email: this.state.email,
       username: this.state.username,
       password: this.state.password,
+      points: this.state.points
     };
 
     console.log(user);
 
-    axios.post(`http://127.0.0.1:5000/login/`, { user })
+    axios.post(`http://127.0.0.1:5000/insertUser/`, { user })
       .then(res => {
         console.log(res);
         console.log(res.data);
-      }).catch(err=>{createTwoButtonAlert("Login Error", "There was an error logging you in. Please try again!"); localStorage.setItem("username", '')})
-    }
+    }).catch(err=>{createTwoButtonAlert("Register Error", "There was an error registering your account. Please try again!")})}
   }
 
 
 
-export function sendPost(username, password) {
+export function sendPost(name, email, username, password, points) {
   const user = new newUser;
+  user.state.name = name;
+  user.state.email = email;
   user.state.username = username;
   user.state.password = password;
-
-  localStorage.setItem("username", username);
+  user.state.points = points;
   user.handleSubmit();
 }
 
@@ -72,12 +67,32 @@ export function sendPost(username, password) {
 export function PostScreen() {
   const [username, setText] = useState('');
   const [password, setText2] = useState('');
+  const [name, setText3] = useState('');
+  const [email, setText4] = useState('');
 
 
   return(
     
     <View style={styles.container}>
-      <Text>Log Into Your Account!</Text>
+      <Text>Create An Account!</Text>
+
+      <TextInput style = {styles.input}
+               underlineColorAndroid = "transparent"
+               placeholder = "Name"
+               placeholderTextColor = "#231F20"
+               autoCapitalize = "none"
+               
+               onChangeText={name => setText3(name)}
+               defaultValue={name}/>
+
+      <TextInput style = {styles.input}
+               underlineColorAndroid = "transparent"
+               placeholder = "Email"
+               placeholderTextColor = "#231F20"
+               autoCapitalize = "none"
+               
+               onChangeText={email => setText4(email)}
+               defaultValue={email}/>
 
       
 
@@ -105,8 +120,8 @@ export function PostScreen() {
       <Button
         style = {styles.buttonStyle}
 
-        onPress={() => sendPost(username, password)} 
-        title="Submit"
+        onPress={() => sendPost(name, email, username, password, '0')} 
+        title="Sign Up"
         color="#841584"
         accessibilityLabel="Learn more about this purple button"
       />
