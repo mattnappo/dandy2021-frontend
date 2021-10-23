@@ -85,11 +85,12 @@ export function MapWindow() {
       whereValue: selectedPin.id,
     };
 
+    console.log(form);
+
     axios.post(`${HOST}/update/`, { form })
-    .then((response) => {
-      console.log(response);
-    }, (error) => {
-      console.log(error);
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
     });
 
     setSelectedPin({ ...selectedPin, currentUser: localStorage.getItem("username") });
