@@ -9,6 +9,7 @@ var testMarkers = [
         "type": "Garbage Cleanup Job",
         "image": "https://i.imgur.com/G8yrovZ.png",
         "currentUser": "",
+        "points": 300,
     },
     {
         "id": 1,
@@ -20,6 +21,7 @@ var testMarkers = [
         "type": "Garbage Cleanup Job",
         "image": "https://i.imgur.com/G8yrovZ.png",
         "currentUser": "",
+        "points": 300,
     },
     {
         "id": 2,
@@ -31,6 +33,7 @@ var testMarkers = [
         "type": "Animal Care",
         "image": "https://i.imgur.com/G8yrovZ.png",
         "currentUser": "",
+        "points": 300,
     },
     {
         "id": 3,
@@ -42,6 +45,7 @@ var testMarkers = [
         "type": "Garbage Cleanup Job",
         "image": "https://i.imgur.com/G8yrovZ.png",
         "currentUser": "",
+        "points": 300,
     }
 ];
 

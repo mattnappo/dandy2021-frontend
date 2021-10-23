@@ -23,6 +23,7 @@ export function MapWindow() {
     type: "",
     image: "",
     currentUser: "", 
+    points: 0,
   });
   const [swipeRef, setSwipeRef] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
@@ -76,14 +77,15 @@ export function MapWindow() {
 
   const markJobInProgress = () => {
     createTwoButtonAlert("New Job", "You've started a new job! Mark it as completed in the Account page.");
+    const form = {
+      table: "Locations",
+      setPos: "currentUser",
+      newValue: localStorage.getItem("username"),
+      where: 'id',
+      whereValue: selectedPin.id,
+    };
 
-    axios.post(`${HOST}/update/`, {
-        table: "Locations",
-        setPos: "currentUser",
-        newValue: localStorage.getItem("username"),
-        where: 'id',
-        whereValue: selectedPin.id,
-    })
+    axios.post(`${HOST}/update/`, { form })
     .then((response) => {
       console.log(response);
     }, (error) => {
@@ -120,6 +122,7 @@ export function MapWindow() {
                   type: marker.type,
                   image: marker.image,
                   currentUser: marker.currentUser,
+                  points: marker.points,
                 });
                 swipeRef.showFull();
               }}
@@ -152,22 +155,30 @@ export function MapWindow() {
           itemFull={
             <View style={styles.panelContainer}>
               <Text style={styles.title}>{selectedPin.title} (by @{selectedPin.user})</Text>
-              <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude} `} (by @{selectedPin.user}){'\n'}</Text>
               <Text style={{color: '#35b089'}}>{selectedPin.type}</Text>
-              <Text>Description: {selectedPin.comment}</Text>
+              <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude}\n`}</Text>
+              <Text style={styles.title}>Description</Text>
+              <Text>{selectedPin.comment + '\n'}</Text>
+              <Text style={styles.title}>Status</Text>
+
+              <Text style={{color: '#35b089'}}>
+                {`+${selectedPin.points} pts/hr`}
+              </Text>
               <Text>
-                {selectedPin.currentUser == "" ? 
-                "Needs volunteer" : `${selectedPin.currentUser} currently serving`}
+                {selectedPin.currentUser == "" ?
+                "Needs volunteer\n" : `@${selectedPin.currentUser} currently serving\n`}
               </Text>
 
+              <Text style={styles.title}>Photo</Text>
               {/* <Text>{JSON.stringify(selectedPin)}</Text> */}
-
+  {/* <Image src="https://img.icons8.com/color/48/000000/filled-star--v1.png"/> */}
               <Image
                 style={{
                   marginTop: 20,
                   marginBottom: 15,
                   borderRadius: 20,
-                  height: Dimensions.get('window').height - 450,
+                  height: Dimensions.get('window').height - 600,
+
                   width: '100%',
                   justifyContent: 'center',
                   alignItems: 'center', 
@@ -206,6 +217,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  subtitle: {
     fontSize: 16,
     fontWeight: 'bold',
   },
