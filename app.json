@@ -20,7 +20,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.mattnappo.app",
       "config": {
-        "googleMapsApiKey": ""
+        "googleMapsApiKey": "AIzaSyBfpvBZ8tQiY_9MBDD1xJF9ewN7ujVXUSE"
       }
     },
     "android": {
