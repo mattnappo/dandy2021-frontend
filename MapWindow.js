@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, Alert } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer } from 'react-native';
 import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
 import testMarkers from './markers';
 import axios from 'axios';
 
+const HOST = "http://34.125.16.241:80/";
+
 export function MapWindow() {
   const [markers, setMarkers] = useState(null);
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
   const [errorMsg, setErrorMsg] = useState(null);
+  const [selectedPin, setSelectedPin] = useState({
+    id: 0,
+    title: "",
+    user: "",
+    latitude: "",
+    longitude: "",
+    comment: "",
+    type: "",
+    image: "",
+    currentUser: "", 
+  });
+  const [swipeRef, setSwipeRef] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -57,6 +72,25 @@ export function MapWindow() {
       ]
     );
 
+  const markJobInProgress = () => {
+    createTwoButtonAlert("New Job", "You've started a new job! Mark it as completed in the Account page.");
+
+    axios.post(`${HOST}/update/`, {
+        table: "Locations",
+        setPos: "currentUser",
+        newValue: selectedPin.currentUser,
+        where: 'id',
+        whereValue: selectedPin.id,
+    })
+    .then((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+
+    setSelectedPin({ ...selectedPin, currentUser: selectedPin.currentUser });
+  };
+
   return (
     <View style={styles.mapContainer}>
       <MapView
@@ -73,14 +107,31 @@ export function MapWindow() {
           markers.map((marker, index) => (
             <Marker
               key={index}
-              onPress={(loc) => swipeUpDownRef.showFull()}
+              onPress={(loc) => {
+                setSelectedPin({
+                  id: marker.id,
+                  title: marker.title,
+                  user: marker.user,
+                  latitude: marker.latitude,
+                  longitude: marker.longitude,
+                  comment: marker.comment,
+                  type: marker.type,
+                  image: marker.image,
+                  currentUser: marker.currentUser,
+                });
+                swipeRef.showFull();
+              }}
               coordinate={{
                 latitude: marker.latitude,
                 longitude: marker.longitude,
               }}
               title={`${marker.title} (@${marker.user})`}
               description={marker.comment}
-              image={require("./assets/icons8-place-marker-100.png")}
+              image={
+                marker.currentUser == "" ?
+                  require("./assets/icons8-place-marker-100.png") : 
+                  require("./assets/progressPin.png")
+              }
             />
           ))}
 
@@ -95,18 +146,45 @@ export function MapWindow() {
       </MapView>
 
       <SwipeUpDown
-          hasRef={ref => (swipeUpDownRef = ref)}
+          hasRef={ref => (setSwipeRef(ref))}
           itemFull={
             <View style={styles.panelContainer}>
-              <Text style={styles.instructions}>
-                Swipe down to close
+              <Text style={styles.title}>{selectedPin.title} (by @{selectedPin.user})</Text>
+              <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude} `} (by @{selectedPin.user}){'\n'}</Text>
+              <Text style={{color: '#35b089'}}>{selectedPin.type}</Text>
+              <Text>Description: {selectedPin.comment}</Text>
+              <Text>
+                {selectedPin.currentUser == "" ? 
+                "Needs volunteer" : `${selectedPin.currentUser} currently serving`}
               </Text>
+
+              <Text>{JSON.stringify(selectedPin)}</Text>
+
+            {/*
+              <Image
+                style={{
+                  marginTop: 20,
+                  marginBottom: 15,
+                  borderRadius: 20,
+                  height: Dimensions.get('window').height - 450,
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center', 
+                }}
+                source={{ uri: selectedPin.image}} tint="light"
+              />
+              */}
+
+              {
+                selectedPin.currentUser == "" ? 
+                <Button
+                  onPress={markJobInProgress}
+                  title="Start job"
+                  color="#4287f5"
+                /> : <Text style={styles.started}>Job Already Started</Text>
+              }
             </View>
           }
-          swipeHeight={0}
-          onShowMini={() => console.log('mini')}
-          onShowFull={() => console.log('full')}
-          disablePressToShow={false}
           style={{ backgroundColor: '#fff' }}
           animation="easeInEaseOut"
       />
@@ -122,11 +200,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    //width: Dimensions.get('window').width,
+    //height: Dimensions.get('window').height,
+    width: '100%',
+    height: '100%',
   },
-  panelContainer: {
-    height: 300,
-    backgroundColor: 'red'
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  started: {
+    fontWeight: 'bold',
+    marginTop: 12,
+    color: '#35b089',
+    textAlign: 'center',
   }
 });
