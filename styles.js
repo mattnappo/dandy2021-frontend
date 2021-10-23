@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-  container: {
+  mapContainer: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    height: '30%',
   },
   popup: {
     position: 'absolute',
@@ -17,8 +18,6 @@ export const styles = StyleSheet.create({
   },
   map: {
     //...StyleSheet.absoluteFillObject,
-    height: 400,
-    width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'red',
