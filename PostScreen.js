@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import styles from './styles.js'
+import { styles } from './styles';
 
-export default function BrowseScreen() {
+export function PostScreen() {
   return(
     <View style={styles.container}>
-      <Text>This is the browse screen</Text>
+      <Text>This is the post screen</Text>
     </View>
   );
 }
