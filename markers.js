@@ -39,7 +39,7 @@ var testMarkers = [
         "latitude": 43.126300, 
         "longitude": -77.628405,
         "comment": "Needs cleaning",
-        "type": "Garbage Cleanup",
+        "type": "Garbage Cleanup Job",
         "image": "https://i.imgur.com/G8yrovZ.png",
         "currentUser": "",
     }

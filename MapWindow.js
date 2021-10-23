@@ -4,9 +4,10 @@ import { StyleSheet, Text, View, Dimensions, Alert, Button, Image, TouchableOpac
 import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
 import testMarkers from './markers';
+import 'localstorage-polyfill';
 import axios from 'axios';
 
-const HOST = "http://34.125.16.241:80/";
+const HOST = "http://34.125.16.241:80";
 
 export function MapWindow() {
   const [markers, setMarkers] = useState(null);
@@ -27,6 +28,7 @@ export function MapWindow() {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
+    localStorage.setItem("username", "Matt");
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -78,7 +80,7 @@ export function MapWindow() {
     axios.post(`${HOST}/update/`, {
         table: "Locations",
         setPos: "currentUser",
-        newValue: selectedPin.currentUser,
+        newValue: localStorage.getItem("username"),
         where: 'id',
         whereValue: selectedPin.id,
     })
@@ -88,7 +90,7 @@ export function MapWindow() {
       console.log(error);
     });
 
-    setSelectedPin({ ...selectedPin, currentUser: selectedPin.currentUser });
+    setSelectedPin({ ...selectedPin, currentUser: localStorage.getItem("username") });
   };
 
   return (
@@ -158,9 +160,8 @@ export function MapWindow() {
                 "Needs volunteer" : `${selectedPin.currentUser} currently serving`}
               </Text>
 
-              <Text>{JSON.stringify(selectedPin)}</Text>
+              {/* <Text>{JSON.stringify(selectedPin)}</Text> */}
 
-            {/*
               <Image
                 style={{
                   marginTop: 20,
@@ -173,7 +174,6 @@ export function MapWindow() {
                 }}
                 source={{ uri: selectedPin.image}} tint="light"
               />
-              */}
 
               {
                 selectedPin.currentUser == "" ? 

@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 1,
     color: '#000000',
-    textAlign: 'center'
+    textAlign: 'center',
+    alignItems: 'center',
  },
 });
