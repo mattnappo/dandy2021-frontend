@@ -9,6 +9,8 @@ import axios from 'axios';
 
 const HOST = "http://34.125.16.241:80";
 
+localStorage.setItem("username", "N8");
+
 const cap = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 };

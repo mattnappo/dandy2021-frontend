@@ -7,6 +7,10 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
 export default class CameraScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
@@ -46,6 +50,8 @@ export default class CameraScreen extends React.Component {
         encoding: FileSystem.EncodingType.Base64,
       });
 
+      this.props.func(encoded);
+
     }
   }
 
@@ -57,6 +63,8 @@ export default class CameraScreen extends React.Component {
     let encoded = await FileSystem.readAsStringAsync(photo.uri, {
       encoding: FileSystem.EncodingType.Base64,
     });
+
+    this.props.func(encoded);
 
   }
 

@@ -17,7 +17,7 @@ export function PostScreen() {
   const [jobType, setJobType] = useState('environmental');
   const [locName, setLocName] = useState('');
   const [swipeRef, setSwipeRef] = useState(null);
-  const [imageSet, setImageSet] = useState(false);
+  const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("username", "N8");
@@ -61,12 +61,12 @@ export function PostScreen() {
 
   const postJob = () => {
     if (title != "" && description != "" && location.latitude != 0 && location.longitude != 0
-    && imageSet) {
+    && imageData != null) {
       let data = {
         user: localStorage.getItem("username"),
         longitude: location.longitude,
         latitude: location.latitude,
-        image: null,
+        image: imageData,
         comment: description,
         type: jobType,
         title: title,
@@ -74,7 +74,7 @@ export function PostScreen() {
         points: 75,
       };
 
-      console.log(data);
+      // console.log(data);
 
       fetch('http://34.125.16.241:80/insertLocation/', {
         method: 'POST',
@@ -96,6 +96,11 @@ export function PostScreen() {
       ]
     );
   };
+
+  const pullData = (data) => {
+    setImageData(data);
+    swipeRef.showMini();
+  }
 
   return (
     <View style={styles.container}>
@@ -154,20 +159,21 @@ export function PostScreen() {
           <Picker.Item label="Tourism" value="tourism" />
         </Picker>
 
-
         <View style={{
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center'
         }}>
+          {
+          imageData == null ?
           <Button
             onPress={() => {
               swipeRef.showFull();
-              setImageSet(true);
             }}
             title="Add Image"
             color="#4287f5"
-          />
+          /> : <View />
+          }
 
           <Button
             onPress={postJob}
@@ -180,7 +186,7 @@ export function PostScreen() {
       <SwipeUpDown
           hasRef={ref => (setSwipeRef(ref))}
           itemFull={
-            <CameraScreen />
+            <CameraScreen func={pullData}/>
           }
           style={{ backgroundColor: '#fff' }}
           animation="easeInEaseOut"
