@@ -69,4 +69,14 @@ export const styles = StyleSheet.create({
     height: 100, // not working
     width: '100%',
   },
+  centerting: {
+    alignItems: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 100,
+    overflow: 'hidden',
+    borderRadius: 10,
+    backgroundColor: "#ffffff"
+ 
+  },
 });
