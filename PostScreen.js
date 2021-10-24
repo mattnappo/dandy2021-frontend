@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, TextInput, Text, View } from 'react-native';
+import { SafeAreaView, TextInput, Text, View, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { styles } from './styles';
@@ -26,6 +26,10 @@ export function PostScreen() {
     })();
   }, []);
 
+  const postJob = () => {
+
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -41,7 +45,7 @@ export function PostScreen() {
         <SafeAreaView>
           <Text style={{...styles.subtitle, marginTop: 14}}>Location:
             <Text style={{fontWeight: 'normal'}}>
-              {` ${location.latitude}, ${location.longitude}`}
+              {` ${location.latitude.toString().substring(0, 8)}, ${location.longitude.toString().substring(0, 8)}`}
             </Text>
           </Text>
         </SafeAreaView>
@@ -75,6 +79,12 @@ export function PostScreen() {
             placeholder="Description"
           />
         </SafeAreaView>
+
+        <Button
+          onPress={postJob}
+          title="Create Job"
+          color="#4287f5"
+        /> 
       </View>
     </View>
   );

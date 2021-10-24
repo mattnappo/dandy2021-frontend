@@ -43,13 +43,14 @@ export const styles = StyleSheet.create({
     color: '#000000',
   }, 
   bigInput: {
-    height: 200,
+    height: 125,
     paddingHorizontal: 10,
     width: '100%',
     borderRadius: 10,
     borderColor: '#ccc',
     borderWidth: 1,
     color: '#000000',
+    marginBottom: 10,
   },
   title: {
     fontSize: 18,
@@ -65,7 +66,7 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     alignItems: 'center',
     borderRadius: 12,
-    height: 300,
+    height: 100, // not working
     width: '100%',
   },
 });
