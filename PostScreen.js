@@ -7,7 +7,6 @@ import { styles } from './styles';
 export function PostScreen() {
   const [title, onChangeTitle] = useState(null);
   const [description, onChangeDescription] = useState(null);
-  const [jobType, onChangeJobType] = useState(null);
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export function PostScreen() {
   }, []);
 
   const postJob = () => {
-    console.log("POSTING NEW JOB");
+
   }
 
   return (
@@ -40,12 +39,6 @@ export function PostScreen() {
             onChangeText={onChangeTitle}
             value={title}
             placeholder="Job Title"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeJobType}
-            value={jobType}
-            placeholder="Job Type"
           />
         </SafeAreaView>
 

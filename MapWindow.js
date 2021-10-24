@@ -98,10 +98,6 @@ export function MapWindow() {
 
   return (
     <View style={styles.mapContainer}>
-      <TextInput
-        style={styles.input}
-        placeholder={"Search location"}
-      />
       <MapView
         style={styles.map}
         region={{
