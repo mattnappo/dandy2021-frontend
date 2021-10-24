@@ -1,24 +1,13 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+
   mapContainer: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     height: '30%',
-  },
-  container: {
-    backgroundColor: '#fff',
-    height: '100%',
-    width: '100%',
-    flex: 1,
-  },
-  innerContainer: {
-    backgroundColor: '#fff',
-    height: '100%',
-    flex: 1,
-    margin: 15,
   },
   popup: {
     position: 'absolute',
@@ -32,38 +21,17 @@ export const styles = StyleSheet.create({
     //...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    backgroundColor: 'red',
   },
+
   input: {
+    margin: 15,
     height: 40,
-    paddingHorizontal: 10,
-    width: '100%',
-    borderRadius: 10,
-    borderColor: '#ccc',
+    width: 300,
+    borderColor: '#000000',
     borderWidth: 1,
     color: '#000000',
-  }, 
-  bigInput: {
-    height: 125,
-    paddingHorizontal: 10,
-    width: '100%',
-    borderRadius: 10,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    color: '#000000',
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  miniMap: {
-    flex: 1,
-    marginTop: 5,
-    marginBottom: 20,
+    textAlign: 'center',
     alignItems: 'center',
     borderRadius: 12,
     height: 100, // not working
