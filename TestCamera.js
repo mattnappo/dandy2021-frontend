@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
 
 export default class App extends React.Component {
   state = {
@@ -41,18 +42,31 @@ export default class App extends React.Component {
   takePicture = async () => {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
+      console.log(photo.uri);
+      let encoded = await FileSystem.readAsStringAsync(photo.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
 
+      console.log(encoded);
+      console.log(photo);
     }
   }
 
   pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    let photo = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
-    console.log(result);
+    
+    console.log(photo.uri);
+    let encoded = await FileSystem.readAsStringAsync(photo.uri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    console.log(encoded);
+    console.log(photo);
   }
 
-  render(){
+  render() {
     const { hasPermission } = this.state
     if (hasPermission === null) {
       return <View />;
