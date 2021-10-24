@@ -9,6 +9,17 @@ import axios from 'axios';
 
 const HOST = "http://34.125.16.241:80";
 
+Object.defineProperty(String.prototype, 'capitalize', {
+  value: function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  },
+  enumerable: false
+});
+
+const cap = (s) => {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 export function MapWindow() {
   const [markers, setMarkers] = useState(null);
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
@@ -178,7 +189,7 @@ export function MapWindow() {
           itemFull={
             <View style={styles.panelContainer}>
               <Text style={styles.title}>{selectedPin.title} (by @{selectedPin.user})</Text>
-              <Text style={{color: '#35b089'}}>{selectedPin.type}</Text>
+              <Text style={{color: '#35b089'}}>{cap(selectedPin.type)}</Text>
               <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude}\n`}</Text>
               <Text style={styles.title}>Description</Text>
               <Text>{selectedPin.comment + '\n'}</Text>
