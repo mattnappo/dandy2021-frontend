@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer } from 'react-native';
 import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
 import testMarkers from './markers';
@@ -98,6 +98,10 @@ export function MapWindow() {
 
   return (
     <View style={styles.mapContainer}>
+      <TextInput
+        style={styles.input}
+        placeholder={"Search location"}
+      />
       <MapView
         style={styles.map}
         region={{
