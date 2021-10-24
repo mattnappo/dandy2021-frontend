@@ -32,15 +32,26 @@ export function PostScreen() {
 
       let link = reverseGeocodeLink(curlocation.coords.latitude, curlocation.coords.longitude);
       console.log(link);
-      //fetch(link)
-      fetch("https://api.tomtom.com/search/2/reverseGeocode/43.12917763369043,-77.62889165477519.json?key=Glaz16Ec6CHjaHBhPjvH80spt0SlLr0Lu")
+      /*
+      fetch(link, {method: 'GET'})
       .then(res => {
         console.log(res);
-        let parsedRes = res.json();
-        console.log("SHIT!" + parsedRes.addresses[0].freeformAddress);
-        setLocName(parsedRes.addresses[0].freeformAddress);
+        res.json()
+        //let parsedRes = res.data.json();
+        //console.log("SHIT!" + parsedRes.addresses[0].freeformAddress);
+        //setLocName(parsedRes.addresses[0].freeformAddress);
+      })
+      .then(data => {
+        console.log(data);
       });
+      */
 
+      fetch(link)
+      .then(response => response.json())
+      .then(data => {
+        console.log(JSON.stringify(data.addresses[0]['address']['freeformAddress']));
+        setLocName(data.addresses[0]['address']['freeformAddress']);
+      });
     })();
   }, []);
 
@@ -99,10 +110,8 @@ export function PostScreen() {
           />
         </SafeAreaView>
         
-        <Text style={{...styles.subtitle, marginTop: 14}}>Location:
-          <Text style={{fontWeight: 'normal'}}>
-            {locName == "" ? `${location.latitude.toString().substring(0, 8)}, ${location.longitude.toString().substring(0, 8)}` : locName}
-          </Text>
+        <Text style={{fontWeight: 'normal', marginTop: 8, marginBottom: 8 }}>
+          {locName == "" ? 'Loading location' : locName}
         </Text>
         
         <View style={styles.mapContainer}>

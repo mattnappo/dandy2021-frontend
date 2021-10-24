@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { StyleSheet, Text, TextInput, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer } from 'react-native';
 import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
@@ -99,6 +99,7 @@ export function MapWindow() {
   return (
     <View style={styles.mapContainer}>
       <MapView
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         region={{
           latitude: 43.1284168,
@@ -193,7 +194,7 @@ export function MapWindow() {
                   onPress={markJobInProgress}
                   title="Start job"
                   color="#4287f5"
-                /> : <Text style={styles.started}>Job Already Started</Text>
+                /> : <Text style={styles.started}>Job Already Started (@{selectedPin.currentUser})</Text>
               }
             </View>
           }
