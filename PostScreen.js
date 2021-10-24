@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView, TextInput, Text, View, Button, Picker, Alert } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
+import SwipeUpDown from 'react-native-swipe-up-down';
+import CameraScreen from './CameraScreen';
 import axios from 'axios';
 import { styles } from './styles';
 import reverseGeocodeLink from './common';
@@ -14,6 +16,8 @@ export function PostScreen() {
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
   const [jobType, setJobType] = useState('environmental');
   const [locName, setLocName] = useState('');
+  const [swipeRef, setSwipeRef] = useState(null);
+  const [imageSet, setImageSet] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("username", "N8");
@@ -56,7 +60,8 @@ export function PostScreen() {
   }, []);
 
   const postJob = () => {
-    if (title != "" && description != "" && location.latitude != 0 && location.longitude != 0) {
+    if (title != "" && description != "" && location.latitude != 0 && location.longitude != 0
+    && imageSet) {
       let data = {
         user: localStorage.getItem("username"),
         longitude: location.longitude,
@@ -148,13 +153,32 @@ export function PostScreen() {
           <Picker.Item label="Health" value="health" />
           <Picker.Item label="Tourism" value="tourism" />
         </Picker>
-        
+
+        <Button
+          onPress={() => {
+            swipeRef.showFull();
+            setImageSet(true);
+          }}
+          title="Add Image"
+          color="#4287f5"
+        />
+
         <Button
           onPress={postJob}
           title="Create Job"
           color="#4287f5"
         /> 
       </View>
+
+      <SwipeUpDown
+          hasRef={ref => (setSwipeRef(ref))}
+          itemFull={
+            <CameraScreen />
+          }
+          style={{ backgroundColor: '#fff' }}
+          animation="easeInEaseOut"
+      />
     </View>
+
   );
 }

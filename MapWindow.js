@@ -9,13 +9,6 @@ import axios from 'axios';
 
 const HOST = "http://34.125.16.241:80";
 
-Object.defineProperty(String.prototype, 'capitalize', {
-  value: function() {
-    return this.charAt(0).toUpperCase() + this.slice(1);
-  },
-  enumerable: false
-});
-
 const cap = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 };
@@ -124,7 +117,7 @@ export function MapWindow() {
     });
 
     setSelectedPin({ ...selectedPin, currentUser: localStorage.getItem("username") });
-    // updateMarkers();
+    updateMarkers();
   };
 
   return (

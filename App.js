@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ExploreScreen } from './ExploreScreen';
 import { PostScreen } from './PostScreen';
 import { AccountScreen } from './AccountScreen';
-import TestCamera from './TestCamera';
+import TestCamera from './CameraScreen';
 import TestSwipeUp from './TestSwipeUp';
 
 const Tab = createBottomTabNavigator();
@@ -53,7 +53,7 @@ function MyTabs() {
       <Tab.Screen name="Explore Jobs" component={ExploreScreen}/>
       <Tab.Screen name="New Job" component={PostScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
-      <Tab.Screen name="Cam" component={TestCamera} />
+      {/* <Tab.Screen name="Test Camera" component={TestCamera} /> */}
     </Tab.Navigator>
   );
 }

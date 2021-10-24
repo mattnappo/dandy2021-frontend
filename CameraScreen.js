@@ -6,7 +6,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 
-export default class App extends React.Component {
+export default class CameraScreen extends React.Component {
   state = {
     hasPermission: null,
     cameraType: Camera.Constants.Type.back,
@@ -42,13 +42,10 @@ export default class App extends React.Component {
   takePicture = async () => {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
-      console.log(photo.uri);
       let encoded = await FileSystem.readAsStringAsync(photo.uri, {
         encoding: FileSystem.EncodingType.Base64,
       });
 
-      console.log(encoded);
-      console.log(photo);
     }
   }
 
@@ -57,13 +54,10 @@ export default class App extends React.Component {
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
     
-    console.log(photo.uri);
     let encoded = await FileSystem.readAsStringAsync(photo.uri, {
       encoding: FileSystem.EncodingType.Base64,
     });
 
-    console.log(encoded);
-    console.log(photo);
   }
 
   render() {
