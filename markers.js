@@ -1,28 +1,29 @@
 var testMarkers = [
-    {
-        "id": 0,
-        "title": "Lost Cat",
-        "user": "James Smith",
-        "latitude": 43.128242,
-        "longitude": -77.630194,
-        "comment": "A stray cat has been wandering around in the neighborhood for about a week. It’s black and white and it shows up on this street every evening. It comes to you if you have food in your hand. It needs to be sent to animal shelter.",
-        "type": "Animal",
-        "image": "https://media.discordapp.net/attachments/901251629658013698/901666304346435614/unknown.png",
-        "currentUser": "",
-        "points": 300,
-    },
-    {
-        "id": 1,
-        "title": "Trash Cleanup",
-        "user": "Doughlass Marino",
-        "latitude": 43.128587,
-        "longitude": -77.629263,
-        "comment": "The beach nearby is full of trash and it smells so bad everyday. We need volunteers to clean up the beach.",
-        "type": "Social",
-        "image": "https://media.discordapp.net/attachments/901251629658013698/901667216997613660/unknown.png",
-        "currentUser": "",
-        "points": 400,
-    },
+  {
+    "title": "Lost Cat",
+    "user": "James Smith",
+    "latitude": 43.128242,
+    "longitude": -77.630194,
+    "comment": "A stray cat has been wandering around in the neighborhood. It comes to you if you have food in your hand. It needs an animal shelter.",
+    "type": "Animal",
+    "image": "https://media.discordapp.net/attachments/901251629658013698/901666304346435614/unknown.png",
+    "currentUser": "",
+    "points": 300,
+    "locName": "735 Library Road, Rochester, NY 14627"
+},
+{
+       
+  "title": "Trash Cleanup",
+  "user": "Douglass Marino",
+  "latitude": 43.128587,
+  "longitude": -77.629263,
+  "comment": "The beach nearby is full of trash and it smells so bad everyday. We need volunteers to clean up the beach.",
+  "type": "Social",
+  "image": "https://media.discordapp.net/attachments/901251629658013698/901667216997613660/unknown.png",
+  "currentUser": "",
+  "points": 400,
+  "locName": "735 Library Road, Rochester, NY 14627"
+},
     {
         "id": 2,
         "title": "Fundraiser",
@@ -34,6 +35,7 @@ var testMarkers = [
         "image": "https://media.discordapp.net/attachments/901251629658013698/901667851935580220/unknown.png",
         "currentUser": "",
         "points": 233,
+        "locName": "540 Fraternity Road, Rochester, NY 14627"
     },
     {
         "id": 3,
@@ -46,6 +48,7 @@ var testMarkers = [
         "image": "https://media.discordapp.net/attachments/901251629658013698/901668800775196692/unknown.png",
         "currentUser": "",
         "points": 50,
+        "locName": "435 Alumni Road, Rochester, NY 14627"
     }
 ];
 

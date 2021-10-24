@@ -44,13 +44,17 @@ function MyTabs() {
 
   };
 
+  const test = () => {
+    console.log('TEST');
+  };
+
   return (
     //<TestSwipeUp />
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({color}) => screenOptions(route, color),
       })}>
-      <Tab.Screen name="Explore Jobs" component={ExploreScreen}/>
+      <Tab.Screen name="Explore Jobs" component={ExploreScreen} />
       <Tab.Screen name="New Job" component={PostScreen} />
       <Tab.Screen name="Account" component={AccountScreen} />
       {/* <Tab.Screen name="Test Camera" component={TestCamera} /> */}

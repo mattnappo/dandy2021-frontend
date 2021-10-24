@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { StyleSheet, Text, TextInput, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Dimensions, Alert, Button, Image, TouchableOpacity, Modal, ImageViewer, ProgressViewIOSComponent } from 'react-native';
 import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
 import testMarkers from './markers';
@@ -16,7 +16,7 @@ const cap = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-export function MapWindow() {
+export function MapWindow({ shouldUpdate, updateParent }) {
   const [markers, setMarkers] = useState(null);
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
   const [errorMsg, setErrorMsg] = useState(null);
@@ -33,7 +33,6 @@ export function MapWindow() {
     points: 0,
   });
   const [swipeRef, setSwipeRef] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
   const [locName, setLocName] = useState("");
 
   useEffect(() => {
@@ -51,15 +50,6 @@ export function MapWindow() {
         longitude: curlocation.coords.longitude,
       });
 
-      let link = reverseGeocodeLink(curlocation.coords.latitude, curlocation.coords.longitude);
-      console.log(link);
-
-      fetch(link)
-      .then(response => response.json())
-      .then(data => {
-        console.log(JSON.stringify(data.addresses[0]['address']['freeformAddress']));
-        setLocName(data.addresses[0]['address']['freeformAddress']);
-      });
       // createTwoButtonAlert("Location found", JSON.stringify(location));
     })();
   }, []);
@@ -73,6 +63,7 @@ export function MapWindow() {
       url: "http://34.125.16.241:80/read/", data
     })
       .then((res) => {
+
         console.log(res.data);
         let newMarkers = [];
         for (let i = 0; i < res.data.length; i++) {
@@ -87,6 +78,7 @@ export function MapWindow() {
             title: res.data[i][7],
             currentUser: res.data[i][8],
             points: res.data[i][9],
+            locName: res.data[i][10],
           });
         }
         setMarkers(newMarkers);
@@ -136,6 +128,16 @@ export function MapWindow() {
 
   return (
     <View style={styles.mapContainer}>
+
+      <Button
+        style={{
+          width: 40,
+          height: 10
+        }}
+        title="Refresh"
+        onPress={updateMarkers}
+      />
+
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
@@ -163,6 +165,7 @@ export function MapWindow() {
                   image: marker.image,
                   currentUser: marker.currentUser,
                   points: marker.points,
+                  locName: marker.locName,
                 });
                 swipeRef.showFull();
               }}
@@ -198,7 +201,7 @@ export function MapWindow() {
               <Text style={styles.title}>{selectedPin.title} (by @{selectedPin.user})</Text>
               <Text style={{color: '#35b089'}}>{cap(selectedPin.type)}</Text>
               {/* <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude}\n`}</Text> */}
-              <Text style={{color: '#999'}}>{`${locName}\n`}</Text>
+              <Text style={{color: '#999'}}>{`${selectedPin.locName}\n`}</Text>
               <Text style={styles.title}>Description</Text>
               <Text>{selectedPin.comment + '\n'}</Text>
               <Text style={styles.title}>Status</Text>
