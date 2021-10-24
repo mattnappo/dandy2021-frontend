@@ -61,6 +61,7 @@ export function PostScreen() {
         title: title,
         currentUser: "",
         points: 75,
+        locName: locName,
       };
 
       // console.log(data);
