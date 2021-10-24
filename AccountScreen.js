@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import { Text, View, Button, Alert, TextInput} from 'react-native';
-import { styles } from './styles';
-import axios from 'axios';
-import 'localstorage-polyfill'; 
-
-
+import React from 'react';
+import { Text, View } from 'react-native';
+import { styles } from './styles.js'
 
 export function AccountScreen() {
   return(
