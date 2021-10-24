@@ -14,13 +14,15 @@ export function AccountScreen() {
 
       <Text> </Text>
 
-      <Text style={styles.input}>Username:</Text>
-      <Text style={styles.input}>Email:</Text>
-      <Text style={styles.input}>Points: </Text>
-      <Text style={styles.input}>Achievements: </Text>
+      <Text style={styles.input}>Username: nangafor</Text>
+      <Text style={styles.input}>Email: nangafor@u.rochester.edu</Text>
+      <Text style={styles.input}>Points: 9999999</Text>
+      <Text style={styles.input}>Achievements: Gud man :0</Text>
 
     </View>   
     
     
   );
 }
+
+
