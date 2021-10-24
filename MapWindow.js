@@ -46,7 +46,7 @@ export function MapWindow() {
     })();
   }, []);
 
-  useEffect(() => {
+  const updateMarkers = () => {
     data = {
       'table': 'Locations'
     }
@@ -55,15 +55,32 @@ export function MapWindow() {
       url: "http://34.125.16.241:80/read/", data
     })
       .then((res) => {
-        console.log(res.data)
-        setMarkers();
+        console.log(res.data);
+        let newMarkers = [];
+        for (let i = 0; i < res.data.length; i++) {
+          newMarkers.push({
+            id: res.data[i][0],
+            name: res.data[i][1],
+            longitude: res.data[i][2],
+            latitude: res.data[i][3],
+            image: res.data[i][4],
+            comment: res.data[i][5],
+            type: res.data[i][6],
+            title: res.data[i][7],
+            currentUser: res.data[i][8],
+            points: res.data[i][9],
+          });
+        }
+        setMarkers(newMarkers);
       })
       .catch((error) => {
         console.log(error);
       });
 
-      setMarkers(testMarkers);
-  }, []);
+      // setMarkers(testMarkers);
+  };
+
+  useEffect(updateMarkers, []);
 
   const createTwoButtonAlert = (messageTitle, messageMessage) =>
     Alert.alert(
@@ -96,6 +113,7 @@ export function MapWindow() {
     });
 
     setSelectedPin({ ...selectedPin, currentUser: localStorage.getItem("username") });
+    // updateMarkers();
   };
 
   return (
@@ -144,6 +162,7 @@ export function MapWindow() {
             />
           ))}
 
+        {/* <Text>{JSON.stringify(markers)}</Text> */}
         <Marker
           coordinate={{
             latitude: location.latitude,
