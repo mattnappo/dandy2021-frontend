@@ -47,18 +47,20 @@ export function MapWindow() {
   }, []);
 
   useEffect(() => {
-    /*
+    data = {
+      'table': 'Locations'
+    }
     axios({
-      method: "GET",
-      url: "https://API_URL...",
+      method: "POST",
+      url: "http://34.125.16.241:80/read/", data
     })
-      .then((response) => {
+      .then((res) => {
+        console.log(res.data)
         setMarkers();
       })
       .catch((error) => {
         console.log(error);
       });
-      */
 
       setMarkers(testMarkers);
   }, []);
