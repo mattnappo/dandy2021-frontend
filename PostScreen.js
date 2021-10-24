@@ -4,7 +4,7 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import axios from 'axios';
 import { styles } from './styles';
-// import { reverseGeocodeLink } from './common';
+import reverseGeocodeLink from './common';
 
 const HOST = "http://34.125.16.241:80";
 
@@ -24,11 +24,23 @@ export function PostScreen() {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let curlocation = await Location.getCurrentPositionAsync({});
       setLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: curlocation.coords.latitude,
+        longitude: curlocation.coords.longitude,
       });
+
+      let link = reverseGeocodeLink(curlocation.coords.latitude, curlocation.coords.longitude);
+      console.log(link);
+      //fetch(link)
+      fetch("https://api.tomtom.com/search/2/reverseGeocode/43.12917763369043,-77.62889165477519.json?key=Glaz16Ec6CHjaHBhPjvH80spt0SlLr0Lu")
+      .then(res => {
+        console.log(res);
+        let parsedRes = res.json();
+        console.log("SHIT!" + parsedRes.addresses[0].freeformAddress);
+        setLocName(parsedRes.addresses[0].freeformAddress);
+      });
+
     })();
   }, []);
 
@@ -91,7 +103,7 @@ export function PostScreen() {
         
         <Text style={{...styles.subtitle, marginTop: 14}}>Location:
           <Text style={{fontWeight: 'normal'}}>
-            {` ${location.latitude.toString().substring(0, 8)}, ${location.longitude.toString().substring(0, 8)}`}
+            {locName == "" ? `${location.latitude.toString().substring(0, 8)}, ${location.longitude.toString().substring(0, 8)}` : locName}
           </Text>
         </Text>
         
