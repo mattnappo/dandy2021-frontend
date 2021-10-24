@@ -43,8 +43,9 @@ export const styles = StyleSheet.create({
     color: '#000000',
   }, 
   bigInput: {
-    height: 125,
+    height: 80,
     paddingHorizontal: 10,
+    marginTop: 18,
     width: '100%',
     borderRadius: 10,
     borderColor: '#ccc',
