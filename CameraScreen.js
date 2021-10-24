@@ -68,9 +68,9 @@ export default class CameraScreen extends React.Component {
       return <Text>No access to camera</Text>;
     } else {
       return (
-          <View style={{ flex: 1 }}>
-            <Camera style={{ flex: 1 }} type={this.state.cameraType}  ref={ref => {this.camera = ref}}>
-              <View style={{flex:1, flexDirection:"row",justifyContent:"space-between",margin:30}}>
+          <View style={{ flex: 1, borderRadius: 16, height: '100%'}}>
+            <Camera style={{ flex: 1, borderRadius: 16, height: '100%'}} type={this.state.cameraType}  ref={ref => {this.camera = ref}}>
+              <View style={{marginBottom: 200, flex:1, flexDirection:"row",justifyContent:"space-between",margin:30}}>
                 <TouchableOpacity
                   style={{
                     alignSelf: 'flex-end',

@@ -154,20 +154,27 @@ export function PostScreen() {
           <Picker.Item label="Tourism" value="tourism" />
         </Picker>
 
-        <Button
-          onPress={() => {
-            swipeRef.showFull();
-            setImageSet(true);
-          }}
-          title="Add Image"
-          color="#4287f5"
-        />
 
-        <Button
-          onPress={postJob}
-          title="Create Job"
-          color="#4287f5"
-        /> 
+        <View style={{
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Button
+            onPress={() => {
+              swipeRef.showFull();
+              setImageSet(true);
+            }}
+            title="Add Image"
+            color="#4287f5"
+          />
+
+          <Button
+            onPress={postJob}
+            title="Create Job"
+            color="#4287f5"
+          /> 
+        </View>
       </View>
 
       <SwipeUpDown
