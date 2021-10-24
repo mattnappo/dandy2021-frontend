@@ -8,6 +8,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     height: '30%',
   },
+  container: {
+    backgroundColor: '#fff',
+    height: '100%',
+    width: '100%',
+  },
   popup: {
     position: 'absolute',
     top: '50%',
@@ -20,17 +25,33 @@ export const styles = StyleSheet.create({
     //...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: 'red',
   },
-
   input: {
     margin: 15,
     height: 40,
-    width: 300,
-    borderColor: '#000000',
+    paddingHorizontal: 10,
+    width: '92%',
+    borderRadius: 10,
+    borderColor: '#ccc',
     borderWidth: 1,
     color: '#000000',
-    textAlign: 'center',
-    alignItems: 'center',
- },
+  }, 
+  bigInput: {
+    margin: 15,
+    height: 200,
+    paddingHorizontal: 10,
+    width: '92%',
+    borderRadius: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    color: '#000000',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });

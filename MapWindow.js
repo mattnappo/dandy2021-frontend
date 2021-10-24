@@ -217,14 +217,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  subtitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   started: {
     fontWeight: 'bold',
     marginTop: 12,
