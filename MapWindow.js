@@ -5,11 +5,12 @@ import * as Location from 'expo-location';
 import SwipeUpDown from 'react-native-swipe-up-down';
 import testMarkers from './markers';
 import 'localstorage-polyfill';
+import reverseGeocodeLink from './common';
 import axios from 'axios';
 
 const HOST = "http://34.125.16.241:80";
 
-localStorage.setItem("username", "N8");
+localStorage.setItem("username", "Nate");
 
 const cap = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1);
@@ -33,9 +34,10 @@ export function MapWindow() {
   });
   const [swipeRef, setSwipeRef] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [locName, setLocName] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("username", "N8");
+    localStorage.setItem("username", "Nate");
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -43,10 +45,20 @@ export function MapWindow() {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
+      let curlocation = await Location.getCurrentPositionAsync({});
       setLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: curlocation.coords.latitude,
+        longitude: curlocation.coords.longitude,
+      });
+
+      let link = reverseGeocodeLink(curlocation.coords.latitude, curlocation.coords.longitude);
+      console.log(link);
+
+      fetch(link)
+      .then(response => response.json())
+      .then(data => {
+        console.log(JSON.stringify(data.addresses[0]['address']['freeformAddress']));
+        setLocName(data.addresses[0]['address']['freeformAddress']);
       });
       // createTwoButtonAlert("Location found", JSON.stringify(location));
     })();
@@ -66,7 +78,7 @@ export function MapWindow() {
         for (let i = 0; i < res.data.length; i++) {
           newMarkers.push({
             id: res.data[i][0],
-            name: res.data[i][1],
+            user: res.data[i][1],
             longitude: res.data[i][2],
             latitude: res.data[i][3],
             image: res.data[i][4],
@@ -185,7 +197,8 @@ export function MapWindow() {
             <View style={styles.panelContainer}>
               <Text style={styles.title}>{selectedPin.title} (by @{selectedPin.user})</Text>
               <Text style={{color: '#35b089'}}>{cap(selectedPin.type)}</Text>
-              <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude}\n`}</Text>
+              {/* <Text style={{color: '#999'}}>{`${selectedPin.latitude}, ${selectedPin.longitude}\n`}</Text> */}
+              <Text style={{color: '#999'}}>{`${locName}\n`}</Text>
               <Text style={styles.title}>Description</Text>
               <Text>{selectedPin.comment + '\n'}</Text>
               <Text style={styles.title}>Status</Text>

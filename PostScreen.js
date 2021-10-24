@@ -10,6 +10,8 @@ import reverseGeocodeLink from './common';
 
 const HOST = "http://34.125.16.241:80";
 
+localStorage.setItem("username", "Matt");
+
 export function PostScreen() {
   const [title, onChangeTitle] = useState("");
   const [description, onChangeDescription] = useState("");
@@ -20,7 +22,7 @@ export function PostScreen() {
   const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
-    localStorage.setItem("username", "N8");
+    localStorage.setItem("username", "Matt");
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -36,19 +38,6 @@ export function PostScreen() {
 
       let link = reverseGeocodeLink(curlocation.coords.latitude, curlocation.coords.longitude);
       console.log(link);
-      /*
-      fetch(link, {method: 'GET'})
-      .then(res => {
-        console.log(res);
-        res.json()
-        //let parsedRes = res.data.json();
-        //console.log("SHIT!" + parsedRes.addresses[0].freeformAddress);
-        //setLocName(parsedRes.addresses[0].freeformAddress);
-      })
-      .then(data => {
-        console.log(data);
-      });
-      */
 
       fetch(link)
       .then(response => response.json())
