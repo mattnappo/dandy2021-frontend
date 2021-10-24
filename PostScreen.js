@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, TextInput, Text, View, Button, Picker } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import { SafeAreaView, TextInput, Text, View, Button, Picker, Alert } from 'react-native';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
+import axios from 'axios';
 import { styles } from './styles';
+// import { reverseGeocodeLink } from './common';
+
+const HOST = "http://34.125.16.241:80";
 
 export function PostScreen() {
-  const [title, onChangeTitle] = useState(null);
-  const [description, onChangeDescription] = useState(null);
+  const [title, onChangeTitle] = useState("");
+  const [description, onChangeDescription] = useState("");
   const [location, setLocation] = useState({latitude: 0.0, longitude: 0.0});
   const [jobType, setJobType] = useState('environmental');
+  const [locName, setLocName] = useState('');
 
   useEffect(() => {
-    localStorage.setItem("username", "Matt");
+    localStorage.setItem("username", "N8");
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -28,15 +33,43 @@ export function PostScreen() {
   }, []);
 
   const postJob = () => {
-    let data = {
-      title: title,
-      message: description,
-      latitude: location.latitude,
-      longitude: location.longitude,
-      type: jobType,
-    };
-    console.log(data);
+    if (title != "" && description != "" && location.latitude != 0 && location.longitude != 0) {
+      let data = {
+        user: localStorage.getItem("username"),
+        longitude: location.longitude,
+        latitude: location.latitude,
+        image: null,
+        comment: description,
+        type: jobType,
+        title: title,
+        currentUser: "",
+        points: 75,
+      };
+
+      console.log(data);
+
+      axios.post(`${HOST}/insertLocation/`, { data })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+
+      createTwoButtonAlert('New Job', 'Posted new service job!');
+    }
   }
+
+  const createTwoButtonAlert = (messageTitle, messageMessage) => {
+    Alert.alert(
+      messageTitle,
+      messageMessage,
+      [
+        {
+          text: "Ok",
+          style: "cancel"
+        },
+      ]
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -64,6 +97,7 @@ export function PostScreen() {
         
         <View style={styles.mapContainer}>
           <MapView
+            provider={PROVIDER_GOOGLE}
             style={styles.miniMap}
             region={{
               latitude: 43.1284168,

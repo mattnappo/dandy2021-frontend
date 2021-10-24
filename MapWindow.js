@@ -29,7 +29,7 @@ export function MapWindow() {
   const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("username", "Matt");
+    localStorage.setItem("username", "N8");
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
@@ -222,5 +222,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
     color: '#35b089',
     textAlign: 'center',
-  }
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 });
