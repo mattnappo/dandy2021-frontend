@@ -60,12 +60,10 @@ export function PostScreen() {
 
       console.log(data);
 
-      axios.post(`${HOST}/insertLocation/`, { data })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-
+      fetch('http://34.125.16.241:80/insertLocation/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
       createTwoButtonAlert('New Job', 'Posted new service job!');
     }
   }
