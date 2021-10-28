@@ -1,4 +1,4 @@
-# Dandelion Frontend code - Crowdsourced community service.
+# Dandelion Frontend Code - Crowdsourced Community Service.
 
 Frontend code for the Dandelion App, which won first place in the DandyHacks 2021 hackathon.
 
